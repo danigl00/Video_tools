@@ -1,6 +1,4 @@
 import imageio
-import tqdm
-
 
 def create_gif(video_path, gif_path):
     video = imageio.get_reader(video_path)
