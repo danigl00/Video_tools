@@ -18,38 +18,27 @@ def get_coordinates(event, x, y, flags, param):
         COORDINATES.append((x, y))
         if len(COORDINATES) == 3:
             global start_point, end_point
+            image, original_image = param
             image = original_image.copy()
             start_point, end_point = draw_rectangle(image, COORDINATES)
             cv2.imshow('Image', image)
             COORDINATES.clear()
 
-def obtain_roi(image_path):
-    global original_image, image
-    original_image = cv2.imread(image_path)
+def obtain_roi(original_image):
     image = original_image.copy()
     cv2.imshow('Image', image)
-    cv2.setMouseCallback('Image', get_coordinates)
+    cv2.setMouseCallback('Image', get_coordinates, [image, original_image])
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     return start_point, end_point
 
-def mask_roi(image, start_point, end_point):
+def mask_roi(im2, start_point, end_point):
+    image = im2.copy()
     black_image = np.zeros_like(image)
     # Create a mask with the ROI
     mask = np.zeros_like(image, dtype=np.uint8)
     cv2.rectangle(mask, start_point, end_point, (255, 255, 255), -1)
-    print(f"The start point is {start_point} and the end point is {end_point}")
     # Use the mask to only show the ROI on the black image
-    masked_image = cv2.bitwise_and(original_image, mask)
+    masked_image = cv2.bitwise_and(image, mask)
     masked_image += cv2.bitwise_and(black_image, cv2.bitwise_not(mask))
-
-    # Save the result
-    cv2.imwrite('./masked_image.jpg', masked_image)
     return masked_image
-
-
-start_point, end_point = obtain_roi('./image1.jpg')
-masked_image = mask_roi(original_image, start_point, end_point)
-
- # Save the result
-cv2.imwrite('./masked_image.jpg', masked_image)

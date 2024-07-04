@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-import Mask_roi as mks
+import Masking_fun as mks
 import Obtain_frame as ObFr
 
 COORDINATES = []
@@ -12,7 +12,7 @@ end_point = None
 def Mask_video(video_path, output_path):
     random_frame = ObFr.get_random_frame(video_path, output_path)
 
-    start_point, end_point = mks.obtain_roi_2(random_frame)
+    start_point, end_point = mks.obtain_roi(random_frame)
     output_frames = []
 
     capture = cv2.VideoCapture(video_path)
@@ -23,7 +23,7 @@ def Mask_video(video_path, output_path):
         ret, original_image = capture.read()
         if not ret:
             break
-        masked_image = mks.mask_roi2(original_image, start_point, end_point)
+        masked_image = mks.mask_roi(original_image, start_point, end_point)
 
         output_frames.append(masked_image)
 
