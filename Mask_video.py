@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-import Mask_roi as mks
+import Masking_fun as mks
 import Obtain_frame as ObFr
 
 COORDINATES = []
@@ -12,7 +12,7 @@ end_point = None
 def Mask_video(video_path, output_path):
     random_frame = ObFr.get_random_frame(video_path, output_path)
 
-    start_point, end_point = mks.obtain_roi_2(random_frame)
+    start_point, end_point = mks.obtain_roi(random_frame)
     output_frames = []
 
     capture = cv2.VideoCapture(video_path)
@@ -23,7 +23,7 @@ def Mask_video(video_path, output_path):
         ret, original_image = capture.read()
         if not ret:
             break
-        masked_image = mks.mask_roi2(original_image, start_point, end_point)
+        masked_image = mks.mask_roi(original_image, start_point, end_point)
 
         output_frames.append(masked_image)
 
@@ -37,4 +37,5 @@ def Mask_video(video_path, output_path):
 
     return output_frames
 
-Mask_video('./video.mp4', './output_video.mp4')
+Mask_video("i:/Chercheurs/Nguyen_DangKhoa/Projets_Recherche/Video/Video_original_mp4/p134-78.mp4",#'./video.mp4', 
+           'c:/Users/p0121182/Project/Skeleton_Tracking/EMU_videos/masked_video.mp4')
