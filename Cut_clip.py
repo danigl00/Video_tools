@@ -5,8 +5,8 @@ def cut_video(input_file, output_file, start_time, end_time):
 
 # Example usage
 input_file = "C:/Users/p0121182/Project/Skeleton_Tracking/EMU_videos/p229-1_01.mp4"
-output_file = "C:/Users/p0121182/Project/Skeleton_Tracking/EMU_videos/Cut_p229-1_01.mp4"
-start_time = 100  # Start time in seconds
+output_file = "./video.mp4"
+start_time = 90  # Start time in seconds
 end_time = 101  # End time in seconds
 
 cut_video(input_file, output_file, start_time, end_time)
