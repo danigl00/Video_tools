@@ -1,8 +1,7 @@
 import cv2
-import numpy as np
-
-import Masking_fun as mks
+import Functions.Masking_functions as mks
 import Obtain_frame as ObFr
+import os
 
 COORDINATES = []
 start_point = None
@@ -37,5 +36,10 @@ def Mask_video(video_path, output_path):
 
     return output_frames
 
-Mask_video("i:/Chercheurs/Nguyen_DangKhoa/Projets_Recherche/Video/Video_original_mp4/p134-78.mp4",#'./video.mp4', 
-           'c:/Users/p0121182/Project/Skeleton_Tracking/EMU_videos/masked_video.mp4')
+folder_path = '/home/danielgalindo/smb_share/TeamMembers/GalindoLazo_DanielAlejandro/Projects/Dataset/EMU_videos/'
+file_names = os.listdir(folder_path)
+video_patients = [file_name.split('.')[0] for file_name in file_names if file_name.endswith('.mp4')]
+
+for video_patient in video_patients:
+    Mask_video(f'/home/danielgalindo/smb_share/TeamMembers/GalindoLazo_DanielAlejandro/Projects/Dataset/EMU_videos/{video_patient}.mp4', 
+           f'/home/danielgalindo/smb_share/TeamMembers/GalindoLazo_DanielAlejandro/Projects/Dataset/EMU_masked/masked_{video_patient}.mp4')

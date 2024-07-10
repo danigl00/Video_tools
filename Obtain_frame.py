@@ -20,7 +20,7 @@ class InvalidTimeError(VideoProcessingError):
 def obtain_frame(video_path, time, output_path):
     # Open the video file
     video = cv2.VideoCapture(video_path)
-    frame_number, second_number = calculate_frame(video_path, time)
+    frame_number, _ = calculate_frame(video_path, time)
     # Set the frame position to the desired frame number
     video.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
     # Read the frame
@@ -61,7 +61,7 @@ def calculate_frame(video_path, time):
     video.release()
     return frame_number, time_int
 
-def get_random_frame(video_path, output_path):
+def get_random_frame(video_path, _):
     # Open the video file
     video = cv2.VideoCapture(video_path)
     # Get the total number of frames in the video
@@ -74,7 +74,7 @@ def get_random_frame(video_path, output_path):
     # Check if the frame was read successfully
     if ret:
         # Save the frame as an image
-        image = cv2.imencode('.jpg', frame)
+        cv2.imencode('.jpg', frame)
     else:
         print("Failed to obtain frame.")
     # Release the video file
