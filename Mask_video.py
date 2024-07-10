@@ -1,7 +1,5 @@
 import cv2
-import numpy as np
-
-import Masking_fun as mks
+import Video_tools.Functions.Masking_functions as mks
 import Obtain_frame as ObFr
 
 COORDINATES = []
@@ -37,5 +35,5 @@ def Mask_video(video_path, output_path):
 
     return output_frames
 
-Mask_video("i:/Chercheurs/Nguyen_DangKhoa/Projets_Recherche/Video/Video_original_mp4/p134-78.mp4",#'./video.mp4', 
+Mask_video("i:/Chercheurs/Nguyen_DangKhoa/Projets_Recherche/Video/Video_original_mp4/p134-78.mp4", 
            'c:/Users/p0121182/Project/Skeleton_Tracking/EMU_videos/masked_video.mp4')
